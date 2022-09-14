@@ -1,0 +1,10 @@
+.header {
+    grid-column: 1 / 3;
+    grid-row: 1;
+    background-color: rgb(35, 41, 73);
+}
+
+.header img {
+    width: 100px;
+    filter: brightness(0) invert(1);
+}
