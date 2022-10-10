@@ -1,0 +1,12 @@
+/* eslint-disable jsx-a11y/alt-text */
+// import s from './Settings.module.css';
+
+function Settings(props) {
+    return (
+        <div>
+            Settings
+        </div>
+    );
+}
+
+export default Settings;
