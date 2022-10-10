@@ -1,7 +1,9 @@
+import { Routes, Route } from "react-router-dom";
 import './App.css';
 import Header from './Components/Header/Header';
 import Navbar from './Components/Navbar/Navbar';
 import Profile from './Components/Profile/Profile';
+import Dialogs from './Components/Dialogs/Dialogs';
 import Footer from './Components/Footer/Footer';
 
 function App() {
@@ -9,7 +11,12 @@ function App() {
     <div className="appWrapper">
       <Header />
       <Navbar />
-      <Profile />
+      <div className="contentWrapper">
+        <Routes>
+          <Route path="profile" element={<Profile />} />
+          <Route path="dialogs" element={<Dialogs />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );
