@@ -8,6 +8,10 @@
     color: white;
 }
 
-.item.active {
+.item:hover {
+    color: brown;
+}
+
+.active {
     color: goldenrod;
 }

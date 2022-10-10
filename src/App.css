@@ -1,10 +1,22 @@
-body {
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-}
+/* General App styles */
 
 .appWrapper {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 150px 100% 1fr;
+}
+
+.contentWrapper {
+  grid-column: 2;
+  grid-row: 2;
+  background-color: royalblue;
+  width: 100%;
+  height: 100%;
+}
+
+/* System CSS styles */
+
+a, a:visited {
+  color: inherit;
+  text-decoration: none;
 }

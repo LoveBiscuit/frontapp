@@ -2,8 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import './App.css';
 import Header from './Components/Header/Header';
 import Navbar from './Components/Navbar/Navbar';
-import Profile from './Components/Profile/Profile';
-import Dialogs from './Components/Dialogs/Dialogs';
+import Profile from './Components/Pages/Profile/Profile';
+import Dialogs from './Components/Pages/Dialogs/Dialogs';
 import Footer from './Components/Footer/Footer';
 
 function App() {
