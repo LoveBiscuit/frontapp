@@ -4,12 +4,18 @@
     grid-template-rows: 1fr;
 }
 
-.contactList {
+.dialogsItems {
     grid-column: 1;
     grid-row: 1;
+    padding: 10px;
 }
 
-.dialog {
+.messagesItems {
     grid-column: 2;
     grid-row: 1;
+    padding: 10px;
+}
+
+.active {
+    color: goldenrod;
 }

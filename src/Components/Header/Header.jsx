@@ -5,7 +5,7 @@ import s from './Header.module.css'
 function Header() {
     return (
         <header className={s.header}>
-            <Link to="/profile"><img src="https://i.pinimg.com/originals/5f/53/5a/5f535aa08b3230f893f2a68e74eebf44.png" /></Link>
+            <Link to="/"><img src="https://i.pinimg.com/originals/5f/53/5a/5f535aa08b3230f893f2a68e74eebf44.png" /></Link>
         </header>
     );
 }
