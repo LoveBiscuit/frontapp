@@ -1,0 +1,5 @@
+.messagesItems {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 10px;
+}

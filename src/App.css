@@ -2,8 +2,8 @@
 
 .appWrapper {
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 150px 100% 1fr;
+  grid-template-columns: 200px 4fr;
+  grid-template-rows: 100px 100% 1fr;
 }
 
 .contentWrapper {

@@ -1,7 +1,20 @@
-.nav {
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
     grid-column: 1;
     grid-row: 2;
     background-color: rgb(24, 34, 61);
+}
+
+.navBar {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.friendsBar {
+    grid-column: 1;
+    grid-row: 2;
 }
 
 .item {
@@ -14,4 +27,9 @@
 
 .active {
     color: goldenrod;
+}
+
+h4 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
 }

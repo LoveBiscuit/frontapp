@@ -9,16 +9,16 @@ import Music from './Components/Pages/Music/Music';
 import Settings from './Components/Pages/Settings/Settings';
 import Footer from './Components/Footer/Footer';
 
-function App() {
+function App(props) {
   return (
     <div className="appWrapper">
       <Header />
-      <Navbar />
+      <Navbar data={props.data.friendsList} />
       <div className="contentWrapper">
         <Routes>
-          <Route path="/" element={<Profile />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="dialogs/*" element={<Dialogs />} />
+          <Route path="/" element={<Profile data={props.data.profilePage} />} />
+          <Route path="profile" element={<Profile data={props.data.profilePage} />} />
+          <Route path="dialogs/*" element={<Dialogs data={props.data.dialogsPage} />} />
           <Route path="news" element={<News />} />
           <Route path="music" element={<Music />} />
           <Route path="settings" element={<Settings />} />

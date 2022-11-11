@@ -3,12 +3,12 @@ import s from './Profile.module.css';
 import MyPosts from './My Posts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-function Profile() {
+function Profile(props) {
     return (
         <div className={s.wrapper}>
             <ProfileInfo />
             <div className={s.postsWrapper}>
-                <MyPosts />
+                <MyPosts data={props.data.postsData} />
             </div>
         </div>
     );
