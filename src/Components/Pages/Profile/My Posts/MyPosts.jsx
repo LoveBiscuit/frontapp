@@ -4,31 +4,35 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
 function MyPosts(props) {
-
-    let postsData = props.data;
+    // Отображение постов и их сортировка
+    let postsData = props.data.getState().profilePage.postsData;
     let postsElements = postsData
         .map((el, i) => (<Post key={i} message={el.post} likesCount={el.likesCount} />));
 
-    let newPostElement = React.createRef();
-
+    // Текстовая форма, связь с store
     let addPost = () => {
-        let text = newPostElement.current.value;
-        console.log(text)
+        props.addPost();
+    }
+
+    let newPostElement = React.createRef();
+    let newPostText = props.data.getState().profilePage.newPostText;
+    let onTextareaChange = () => {
+        props.updateNewPostText(newPostElement.current.value);
     }
 
     return (
         <div>
             <h3>My posts</h3>
-            <div> 
+            <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea ref={newPostElement} onChange={onTextareaChange} value={newPostText} />
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
-                {postsElements}
+                {postsElements.reverse()}
             </div>
         </div>
     );

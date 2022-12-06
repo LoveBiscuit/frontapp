@@ -1,5 +1,8 @@
-.messagesItems {
-    grid-column: 2;
-    grid-row: 1;
+.messageItem {
+    display: table;
+    width: auto;
+    margin-bottom: 15px;
+    background-color: rgb(115, 115, 199);
     padding: 10px;
+    border-radius: 20px;
 }

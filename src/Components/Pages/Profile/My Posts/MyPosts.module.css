@@ -1,3 +1,8 @@
 .posts {
     margin-top: 15px;
 }
+
+textarea {
+    width: 300px;
+    height: 100px;
+}

@@ -8,7 +8,7 @@ function Profile(props) {
         <div className={s.wrapper}>
             <ProfileInfo />
             <div className={s.postsWrapper}>
-                <MyPosts data={props.data.postsData} />
+                <MyPosts data={props.data} addPost={props.addPost} updateNewPostText={props.updateNewPostText} />
             </div>
         </div>
     );
