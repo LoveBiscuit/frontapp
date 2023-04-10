@@ -94,8 +94,6 @@ let store = {
     }
 }
 
-// Выносим и создаём экшн-криэйторы в BLL
-
 export const addPostActionCreator = () => ({ type: ADD_POST });
 ;
 
