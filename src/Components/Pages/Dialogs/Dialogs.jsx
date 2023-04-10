@@ -14,13 +14,6 @@ function Dialogs(props) {
     let messagesElements = messagesData
         .map((el, i) => <MessageItem key={i} message={el.message} />);
 
-    // let newDialogMessageElement = React.createRef();
-    // let sendMessage = () => {
-    //     let text = newDialogMessageElement.current.value;
-    //     console.log(text);
-    //     newDialogMessageElement.current.value = '';
-    // }
-
     let sendMessage = () => {
         props.dispatch(addMessageActionCreator());
     }
