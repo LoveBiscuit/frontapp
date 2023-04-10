@@ -13,12 +13,12 @@ function App(props) {
   return (
     <div className="appWrapper">
       <Header />
-      <Navbar data={props.data.getState().friendsList} />
+      <Navbar data={props.data.friendsList} />
       <div className="contentWrapper">
         <Routes>
-          <Route path="/" element={<Profile data={props.data} addPost={props.addPost} updateNewPostText={props.updateNewPostText} />} />
-          <Route path="profile" element={<Profile data={props.data} addPost={props.addPost} updateNewPostText={props.updateNewPostText} />} />
-          <Route path="dialogs/*" element={<Dialogs data={props.data} />} />
+          <Route path="/" element={<Profile data={props.data} dispatch={props.dispatch} />} />
+          <Route path="profile" element={<Profile data={props.data} dispatch={props.dispatch} />} />
+          <Route path="dialogs/*" element={<Dialogs data={props.data} dispatch={props.dispatch} />} />
           <Route path="news" element={<News />} />
           <Route path="music" element={<Music />} />
           <Route path="settings" element={<Settings />} />

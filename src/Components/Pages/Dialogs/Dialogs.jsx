@@ -3,22 +3,33 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
+import { addMessageActionCreator, updateNewDialogTextActionCreator } from '../../../Redux/store';
 
 function Dialogs(props) {
-
-    let dialogsData = props.data.dialogsData;
-    let messagesData = props.data.messagesData;
+    let dialogsData = props.data.dialogsPage.dialogsData;
+    let messagesData = props.data.dialogsPage.messagesData;
     let dialogsElements = dialogsData
         .map((el, i) => <DialogItem key={i} id={el.id} name={el.name} />);
 
     let messagesElements = messagesData
         .map((el, i) => <MessageItem key={i} message={el.message} />);
 
-    let newDialogMessageElement = React.createRef();
+    // let newDialogMessageElement = React.createRef();
+    // let sendMessage = () => {
+    //     let text = newDialogMessageElement.current.value;
+    //     console.log(text);
+    //     newDialogMessageElement.current.value = '';
+    // }
+
     let sendMessage = () => {
-        let text = newDialogMessageElement.current.value;
-        console.log(text);
-        newDialogMessageElement.current.value = '';
+        props.dispatch(addMessageActionCreator());
+    }
+
+    let newDialogElement = React.createRef();
+    let newDialogText = props.data.dialogsPage.newDialogText;
+    let onTextareaChange = () => {
+        let text = newDialogElement.current.value;
+        props.dispatch(updateNewDialogTextActionCreator(text));
     }
 
     return (
@@ -31,7 +42,7 @@ function Dialogs(props) {
                 {messagesElements}
                 <div className={s.messageForm}>
                     <div>
-                        <textarea ref={newDialogMessageElement}></textarea>
+                        <textarea ref={newDialogElement} onChange={onTextareaChange} value={newDialogText}></textarea>
                     </div>
                     <div>
                         <button onClick={sendMessage}>Send</button>

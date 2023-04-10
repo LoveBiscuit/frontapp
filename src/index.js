@@ -11,9 +11,8 @@ let rerenderEntireTree = (localState) => {
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App data={localState}
-                    addPost={store.addPost.bind(store)}
-                    updateNewPostText={store.updateNewPostText.bind(store)} />
+                <App data={localState.getState()}
+                    dispatch={store.dispatch.bind(store)} />
             </BrowserRouter>
         </React.StrictMode>
     );

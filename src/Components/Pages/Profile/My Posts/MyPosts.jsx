@@ -2,22 +2,37 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../../Redux/store';
+
+// let addPostActionCreator = () => {
+//     return {
+//         type: 'ADD-POST'
+//     }
+// }
+
+// let updateNewPostTextActionCreator = (text) => {
+//     return {
+//         type: 'UPDATE-NEW-POST-TEXT',
+//         value: text
+//     }
+// }
 
 function MyPosts(props) {
     // Отображение постов и их сортировка
-    let postsData = props.data.getState().profilePage.postsData;
+    let postsData = props.data.profilePage.postsData;
     let postsElements = postsData
         .map((el, i) => (<Post key={i} message={el.post} likesCount={el.likesCount} />));
 
     // Текстовая форма, связь с store
     let addPost = () => {
-        props.addPost();
+        props.dispatch(addPostActionCreator());
     }
 
     let newPostElement = React.createRef();
-    let newPostText = props.data.getState().profilePage.newPostText;
+    let newPostText = props.data.profilePage.newPostText;
     let onTextareaChange = () => {
-        props.updateNewPostText(newPostElement.current.value);
+        let text = newPostElement.current.value;
+        props.dispatch(updateNewPostTextActionCreator(text));
     }
 
     return (
