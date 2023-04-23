@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_DIALOG_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+import dialogsReducer from "./dialogsReducer";
+import friendsReducer from "./friendsReducer";
+import profileReducer from "./profileReducer";
 
 let store = {
     _state: {
@@ -54,52 +53,12 @@ let store = {
     },
 
     dispatch(action) {
-        switch (action.type) {
-            case 'ADD-POST':
-                let newPost = {
-                    id: 5,
-                    post: this._state.profilePage.newPostText,
-                    likesCount: 0
-                }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.friendsList = friendsReducer(this._state.friendsList, action);
 
-                if (this._state.newPostText !== '' && this._state.profilePage.newPostText.length > 2) {
-                    this._state.profilePage.postsData.push(newPost);
-                    this._state.profilePage.newPostText = '';
-                    this._callSubscriber(this);
-                }
-                break;
-            case 'UPDATE-NEW-POST-TEXT':
-                this._state.profilePage.newPostText = action.value;
-                this._callSubscriber(this);
-                break;
-            case 'ADD-MESSAGE':
-                let newMessage = {
-                    id: 0,
-                    message: this._state.dialogsPage.newDialogText
-                }
-
-                if (this._state.newDialogText !== '' && this._state.dialogsPage.newDialogText.length > 2) {
-                    this._state.dialogsPage.messagesData.push(newMessage);
-                    this._state.dialogsPage.newDialogText = '';
-                    this._callSubscriber(this)
-                }
-                break;
-            case 'UPDATE-NEW-MESSAGE-TEXT':
-                this._state.dialogsPage.newDialogText = action.value;
-                this._callSubscriber(this);
-                break;
-            default:
-                break;
-        }
+        this._callSubscriber(this);
     }
 }
-
-export const addPostActionCreator = () => ({ type: ADD_POST });
-
-export const updateNewPostTextActionCreator = (text) =>  ({ type: UPDATE_NEW_POST_TEXT, value: text });
-
-export const addMessageActionCreator = () => ({ type: ADD_MESSAGE  });
-
-export const updateNewDialogTextActionCreator = (text) => ({ type: UPDATE_NEW_DIALOG_TEXT, value: text });
 
 export default store;

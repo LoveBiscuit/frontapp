@@ -1,5 +1,5 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+export const ADD_POST = 'ADD-POST';
+export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 export const profileReducer = (state, action) => {
     switch (action.type) {
@@ -14,15 +14,16 @@ export const profileReducer = (state, action) => {
                 state.postsData.push(newPost);
                 state.newPostText = '';
             }
-            break;
+            return state;
         case UPDATE_NEW_POST_TEXT:
             state.newPostText = action.value;
-            break;
+            return state;
         default:
-            break;
+            return state;
     }
-
-    return state;
 };
+
+export const addPostActionCreator = () => ({ type: ADD_POST });
+export const updateNewPostTextActionCreator = (text) =>  ({ type: UPDATE_NEW_POST_TEXT, value: text });
 
 export default profileReducer;
