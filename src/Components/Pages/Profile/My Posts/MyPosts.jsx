@@ -4,19 +4,6 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../../Redux/store';
 
-// let addPostActionCreator = () => {
-//     return {
-//         type: 'ADD-POST'
-//     }
-// }
-
-// let updateNewPostTextActionCreator = (text) => {
-//     return {
-//         type: 'UPDATE-NEW-POST-TEXT',
-//         value: text
-//     }
-// }
-
 function MyPosts(props) {
     // Отображение постов и их сортировка
     let postsData = props.data.profilePage.postsData;
@@ -28,10 +15,9 @@ function MyPosts(props) {
         props.dispatch(addPostActionCreator());
     }
 
-    let newPostElement = React.createRef();
     let newPostText = props.data.profilePage.newPostText;
-    let onTextareaChange = () => {
-        let text = newPostElement.current.value;
+    let onTextareaChange = (e) => {
+        let text = e.target.value;
         props.dispatch(updateNewPostTextActionCreator(text));
     }
 
@@ -40,7 +26,9 @@ function MyPosts(props) {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement} onChange={onTextareaChange} value={newPostText} />
+                    <textarea
+                        onChange={onTextareaChange}
+                        value={newPostText} />
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>

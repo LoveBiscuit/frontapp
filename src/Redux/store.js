@@ -95,13 +95,10 @@ let store = {
 }
 
 export const addPostActionCreator = () => ({ type: ADD_POST });
-;
 
 export const updateNewPostTextActionCreator = (text) =>  ({ type: UPDATE_NEW_POST_TEXT, value: text });
 
-
 export const addMessageActionCreator = () => ({ type: ADD_MESSAGE  });
-
 
 export const updateNewDialogTextActionCreator = (text) => ({ type: UPDATE_NEW_DIALOG_TEXT, value: text });
 

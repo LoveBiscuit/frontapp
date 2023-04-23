@@ -14,14 +14,20 @@ function Dialogs(props) {
     let messagesElements = messagesData
         .map((el, i) => <MessageItem key={i} message={el.message} />);
 
+    let onEnterPress = (e) => {
+        if (e.keyCode === 13 && e.shiftKey === false) {
+            e.preventDefault();
+            sendMessage();
+        }
+    }
+
     let sendMessage = () => {
         props.dispatch(addMessageActionCreator());
     }
 
-    let newDialogElement = React.createRef();
     let newDialogText = props.data.dialogsPage.newDialogText;
-    let onTextareaChange = () => {
-        let text = newDialogElement.current.value;
+    let onTextareaChange = (e) => {
+        let text = e.target.value;
         props.dispatch(updateNewDialogTextActionCreator(text));
     }
 
@@ -35,7 +41,12 @@ function Dialogs(props) {
                 {messagesElements}
                 <div className={s.messageForm}>
                     <div>
-                        <textarea ref={newDialogElement} onChange={onTextareaChange} value={newDialogText}></textarea>
+                        <textarea
+                            onChange={onTextareaChange}
+                            value={newDialogText}
+                            onKeyDown={onEnterPress}
+                            placeholder='Enter your message here.'
+                        />
                     </div>
                     <div>
                         <button onClick={sendMessage}>Send</button>
