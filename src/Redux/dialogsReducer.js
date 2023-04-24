@@ -22,7 +22,7 @@ const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             let newMessage = {
-                id: 0,
+                id: 0, 
                 message: state.newDialogText
             }
 
@@ -34,6 +34,7 @@ const dialogsReducer = (state = initialState, action) => {
         case 'UPDATE-NEW-MESSAGE-TEXT':
             state.newDialogText = action.value;
             return state;
+            // return {...state, newDialogText: action.value};
         default:
             return state;
     }
