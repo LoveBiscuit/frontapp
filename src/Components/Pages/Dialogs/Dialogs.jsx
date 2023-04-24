@@ -26,6 +26,7 @@ function Dialogs(props) {
     }
 
     let newDialogText = props.data.dialogsPage.newDialogText;
+    
     let onTextareaChange = (e) => {
         let text = e.target.value;
         props.dispatch(updateNewDialogTextActionCreator(text));

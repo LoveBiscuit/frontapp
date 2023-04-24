@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './Redux/store';
+import store from './Redux/redux-store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let rerenderEntireTree = (localState) => {
@@ -17,6 +17,8 @@ let rerenderEntireTree = (localState) => {
         </React.StrictMode>
     );
 }
+
+rerenderEntireTree(store);
 
 store.subscribe(rerenderEntireTree);
 
