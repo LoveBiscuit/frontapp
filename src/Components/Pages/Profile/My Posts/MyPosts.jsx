@@ -2,23 +2,22 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../../Redux/profileReducer';
 
 function MyPosts(props) {
     // Отображение постов и их сортировка
-    let postsData = props.data.profilePage.postsData;
+    let postsData = props.posts;
     let postsElements = postsData
         .map((el, i) => (<Post key={i} message={el.post} likesCount={el.likesCount} />));
 
     // Текстовая форма, связь с store
-    let addPost = () => {
-        props.dispatch(addPostActionCreator());
+    let onAddPost = () => {
+        props.addPost();
     }
 
-    let newPostText = props.data.profilePage.newPostText;
+    let newPostText = props.newPostText;
     let onTextareaChange = (e) => {
         let text = e.target.value;
-        props.dispatch(updateNewPostTextActionCreator(text));
+        props.updateNewPostText(text);
     }
 
     return (
@@ -31,7 +30,7 @@ function MyPosts(props) {
                         value={newPostText} />
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

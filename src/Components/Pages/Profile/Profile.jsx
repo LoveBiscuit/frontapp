@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 import s from './Profile.module.css';
-import MyPosts from './My Posts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+import MyPostsContainer from './My Posts/MyPostsContainer';
 
 function Profile(props) {
     return (
         <div className={s.wrapper}>
             <ProfileInfo />
             <div className={s.postsWrapper}>
-                <MyPosts data={props.data} dispatch={props.dispatch} />
+                <MyPostsContainer store={props.store} />
             </div>
         </div>
     );
