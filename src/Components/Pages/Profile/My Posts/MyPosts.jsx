@@ -15,6 +15,7 @@ function MyPosts(props) {
     }
 
     let newPostText = props.newPostText;
+    
     let onTextareaChange = (e) => {
         let text = e.target.value;
         props.updateNewPostText(text);

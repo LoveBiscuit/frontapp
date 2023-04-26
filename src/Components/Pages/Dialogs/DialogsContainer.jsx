@@ -4,6 +4,8 @@ import { addMessageActionCreator, updateNewDialogTextActionCreator } from '../..
 import Dialogs from './Dialogs';
 
 function DialogsContainer(props) {
+    let state = props.store.getState();
+    
     let sendMessage = () => {
         props.store.dispatch(addMessageActionCreator());
     }
@@ -16,9 +18,9 @@ function DialogsContainer(props) {
         <Dialogs
             updateNewDialogText={onTextareaChange}
             addMessage={sendMessage}
-            newDialogText={props.store.getState().dialogsPage.newDialogText}
-            dialogs={props.store.getState().dialogsPage.dialogsData}
-            messages={props.store.getState().dialogsPage.messagesData} />
+            newDialogText={state.dialogsPage.newDialogText}
+            dialogs={state.dialogsPage.dialogsData}
+            messages={state.dialogsPage.messagesData} />
     );
 }
 
