@@ -1,8 +1,18 @@
+import StoreContext from '../../../StoreContext';
 import Friends from './Friends';
 
-function FriendsContainer(props) {
+function FriendsContainer() {
     return (
-        <Friends friends={props.store.getState().friendsList.friendsList} />
+        <StoreContext.Consumer>
+            {(store) => {
+                let state = store.getState();
+
+                return (
+                    <Friends friends={state.friendsList.friendsData} />
+                )
+            }
+            }
+        </StoreContext.Consumer>
     );
 }
 
