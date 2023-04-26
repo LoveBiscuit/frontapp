@@ -2,6 +2,7 @@
 import React from 'react';
 import { addMessageActionCreator, updateNewDialogTextActionCreator } from '../../../Redux/dialogsReducer';
 import Dialogs from './Dialogs';
+import StoreContext from '../../../StoreContext';
 
 function DialogsContainer(props) {
     let state = props.store.getState();
@@ -16,12 +17,14 @@ function DialogsContainer(props) {
     }
 
     return (
-        <Dialogs
-            updateNewDialogText={onTextareaChange}
-            addMessage={addMessage}
-            dialogTextarea={state.dialogsPage.dialogTextarea}
-            dialogs={state.dialogsPage.dialogsData}
-            messages={state.dialogsPage.messagesData} />
+        <StoreContext.Consumer>
+            <Dialogs
+                updateNewDialogText={onTextareaChange}
+                addMessage={addMessage}
+                dialogTextarea={state.dialogsPage.dialogTextarea}
+                dialogs={state.dialogsPage.dialogsData}
+                messages={state.dialogsPage.messagesData} />
+        </StoreContext.Consumer>
     );
 }
 
