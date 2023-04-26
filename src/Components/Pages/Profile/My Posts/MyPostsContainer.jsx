@@ -4,21 +4,24 @@ import MyPosts from './MyPosts';
 import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../../Redux/profileReducer';
 
 function MyPostsContainer(props) {
+    let state = props.store.getState();
+    let dispatch = props.store.dispatch;
+
     let addPost = () => {
-        props.store.dispatch(addPostActionCreator());
+        dispatch(addPostActionCreator());
     }
 
     let onTextareaChange = (text) => {
         let action = updateNewPostTextActionCreator(text);
-        props.store.dispatch(action);
+        dispatch(action);
     }
 
     return (
         <MyPosts
             updateNewPostText={onTextareaChange}
             addPost={addPost}
-            posts={props.store.getState().profilePage.postsData}
-            newPostText={props.store.getState().profilePage.newPostText} />
+            posts={state.profilePage.postsData}
+            postTextarea={state.profilePage.postTextarea} />
     );
 }
 

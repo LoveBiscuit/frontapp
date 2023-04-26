@@ -4,9 +4,10 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
 function MyPosts(props) {
+    let postList = props.posts;
+
     // Отображение постов и их сортировка
-    let postsData = props.posts;
-    let postsElements = postsData
+    let postsElements = postList
         .map((el, i) => (<Post key={i} message={el.post} likesCount={el.likesCount} />));
 
     // Текстовая форма, связь с store
@@ -14,7 +15,8 @@ function MyPosts(props) {
         props.addPost();
     }
 
-    let newPostText = props.newPostText;
+    let newPostTextarea = props.postTextarea;
+
     let onTextareaChange = (e) => {
         let text = e.target.value;
         props.updateNewPostText(text);
@@ -27,7 +29,7 @@ function MyPosts(props) {
                 <div>
                     <textarea
                         onChange={onTextareaChange}
-                        value={newPostText} />
+                        value={newPostTextarea} />
                 </div>
                 <div>
                     <button onClick={onAddPost}>Add post</button>

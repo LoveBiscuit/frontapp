@@ -15,7 +15,7 @@ let initialState = {
         { id: 4, message: 'Эмм... Да' },
         { id: 5, message: 'Ну как там с деньгами?' }
     ],
-    newDialogText: '',
+    dialogTextarea: '',
 };
 
 const dialogsReducer = (state = initialState, action) => {
@@ -23,16 +23,16 @@ const dialogsReducer = (state = initialState, action) => {
         case 'ADD-MESSAGE':
             let newMessage = {
                 id: 0, 
-                message: state.newDialogText
+                message: state.dialogTextarea
             }
 
-            if (state.newDialogText !== '' && state.newDialogText.length > 2) {
+            if (state.dialogTextarea !== '' && state.dialogTextarea.length > 2) {
                 state.messagesData.push(newMessage);
-                state.newDialogText = '';
+                state.dialogTextarea = '';
             }
             return state;
         case 'UPDATE-NEW-MESSAGE-TEXT':
-            state.newDialogText = action.value;
+            state.dialogTextarea = action.value;
             return state;
             // return {...state, newDialogText: action.value};
         default:

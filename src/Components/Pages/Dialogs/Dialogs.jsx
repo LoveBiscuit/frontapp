@@ -5,14 +5,17 @@ import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
 
 function Dialogs(props) {
-    let dialogsData = props.dialogs;
-    let messagesData = props.messages;
-    let dialogsElements = dialogsData
+    let dialogList = props.dialogs;
+    let messageList = props.messages;
+
+    // Отображение контактов и сообщений, а также их сортировка
+    let dialogsElements = dialogList
         .map((el, i) => <DialogItem key={i} id={el.id} name={el.name} />);
 
-    let messagesElements = messagesData
+    let messagesElements = messageList
         .map((el, i) => <MessageItem key={i} message={el.message} />);
 
+    // Если мы нажимаем Enter, сообщение отправляется
     let onEnterPress = (e) => {
         if (e.keyCode === 13 && e.shiftKey === false) {
             e.preventDefault();
@@ -20,11 +23,12 @@ function Dialogs(props) {
         }
     }
 
+    // Работа с Action'ами
     let sendMessage = () => {
         props.addMessage();
     }
 
-    let newDialogText = props.newDialogText;
+    let newDialogTextarea = props.dialogTextarea;
     
     let onTextareaChange = (e) => {
         let text = e.target.value;
@@ -36,14 +40,13 @@ function Dialogs(props) {
             <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>
-
             <div className={s.messagesItems}>
                 {messagesElements}
                 <div className={s.messageForm}>
                     <div>
                         <textarea
                             onChange={onTextareaChange}
-                            value={newDialogText}
+                            value={newDialogTextarea}
                             onKeyDown={onEnterPress}
                             placeholder='Enter your message here.'
                         />
