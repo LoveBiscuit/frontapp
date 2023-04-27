@@ -1,36 +1,23 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react';
 import { addMessageActionCreator, updateNewDialogTextActionCreator } from '../../../Redux/dialogsReducer';
 import Dialogs from './Dialogs';
-import StoreContext from '../../../StoreContext';
+import { connect } from 'react-redux';
 
-function DialogsContainer() {
-    return (
-        <StoreContext.Consumer> 
-            {(store) => {
-                let state = store.getState();
-                let dispatch = store.dispatch;
-
-                let addMessage = () => {
-                    dispatch(addMessageActionCreator());
-                }
-
-                let onTextareaChange = (text) => {
-                    dispatch(updateNewDialogTextActionCreator(text));
-                }
-
-                return (
-                    <Dialogs
-                        addMessage={addMessage}
-                        updateNewDialogText={onTextareaChange}
-                        dialogTextarea={state.dialogsPage.dialogTextarea}
-                        dialogs={state.dialogsPage.dialogsData}
-                        messages={state.dialogsPage.messagesData} />
-                )
-            }
-        }
-        </StoreContext.Consumer>
-    );
+let mapStateToProps = (state) => {
+    return {
+        dialogTextarea: state.dialogsPage.dialogTextarea,
+        dialogs: state.dialogsPage.dialogsData,
+        messages: state.dialogsPage.messagesData
+    }
 }
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        addMessage: () => dispatch(addMessageActionCreator()),
+        updateNewDialogText: (text) => dispatch(updateNewDialogTextActionCreator(text))
+    }
+}
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogsContainer;
