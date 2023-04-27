@@ -19,24 +19,26 @@ let initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
+    let newState = {...state};
+    newState.messagesData = [...state.messagesData];
+
     switch (action.type) {
         case 'ADD-MESSAGE':
             let newMessage = {
-                id: 0, 
-                message: state.dialogTextarea
+                id: 0,
+                message: newState.dialogTextarea
             }
 
-            if (state.dialogTextarea !== '' && state.dialogTextarea.length > 2) {
-                state.messagesData.push(newMessage);
-                state.dialogTextarea = '';
+            if (newState.dialogTextarea !== '' && newState.dialogTextarea.length > 0) {
+                newState.messagesData.push(newMessage);
+                newState.dialogTextarea = '';
             }
-            return state;
+            return newState;
         case 'UPDATE-NEW-MESSAGE-TEXT':
-            state.dialogTextarea = action.value;
-            return state;
-            // return {...state, newDialogText: action.value};
+            newState.dialogTextarea = action.value;
+            return newState;
         default:
-            return state;
+            return newState;
     }
 };
 

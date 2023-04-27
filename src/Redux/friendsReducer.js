@@ -9,7 +9,8 @@ let initialState = {
 };
 
 const friendsReducer = (state = initialState, action) => {
-    return state;
+    let newState = {...state};
+    return newState;
 };
 
 export default friendsReducer;

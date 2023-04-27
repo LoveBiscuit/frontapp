@@ -9,24 +9,27 @@ let initialState = {
 };
 
 export const profileReducer = (state = initialState, action) => {
+    let newState = {...state};
+    newState.postsData = [...state.postsData];
+
     switch (action.type) {
         case 'ADD-POST':
             let newPost = {
                 id: 5,
-                post: state.postTextarea,
+                post: newState.postTextarea,
                 likesCount: 0
             }
 
-            if (state.postTextarea !== '' && state.postTextarea.length > 2) {
-                state.postsData.push(newPost);
-                state.postTextarea = '';
+            if (newState.postTextarea !== '' && newState.postTextarea.length > 0) {
+                newState.postsData.push(newPost);
+                newState.postTextarea = '';
             }
-            return state;
+            return newState;
         case 'UPDATE-NEW-POST-TEXT':
-            state.postTextarea = action.value;
-            return state;
+            newState.postTextarea = action.value;
+            return newState;
         default:
-            return state;
+            return newState;
     }
 };
 
