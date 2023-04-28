@@ -9,8 +9,9 @@ let initialState = {
 };
 
 const friendsReducer = (state = initialState, action) => {
-    let newState = {...state};
-    return newState;
+    return {
+        ...state
+    }
 };
 
 export default friendsReducer;

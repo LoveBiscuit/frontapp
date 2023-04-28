@@ -14,6 +14,9 @@ function Navbar(props) {
                     <NavLink to="/dialogs" className={({ isActive }) => isActive ? s.active : ""}>Dialogs</NavLink>
                 </div>
                 <div className={s.item}>
+                    <NavLink to="/users" className={({ isActive }) => isActive ? s.active : ""}>Users</NavLink>
+                </div>
+                <div className={s.item}>
                     <NavLink to="/news" className={({ isActive }) => isActive ? s.active : ""}>News</NavLink>
                 </div>
                 <div className={s.item}>
