@@ -6,6 +6,7 @@ function Users(props) {
     return (
         <div className={s.wrapper}>
             USERS WILL BE HERE
+            {console.log(props.users)}
         </div>
     );
 }

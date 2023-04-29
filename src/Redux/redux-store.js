@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { profileReducer } from './profileReducer';
+import profileReducer from './profileReducer';
 import dialogsReducer from './dialogsReducer';
 import friendsReducer from './friendsReducer';
+import usersReducer from "./usersReducer";
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
+    usersPage: usersReducer,
     friendsList: friendsReducer
 })
 

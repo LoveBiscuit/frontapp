@@ -8,7 +8,7 @@ import Music from './Components/Pages/Music/Music';
 import Settings from './Components/Pages/Settings/Settings';
 import Footer from './Components/Footer/Footer';
 import DialogsContainer from "./Components/Pages/Dialogs/DialogsContainer";
-import Users from "./Components/Pages/Users/Users";
+import UsersContainer from './Components/Pages/Users/UsersContainer';
 
 function App(props) {
   return (
@@ -20,7 +20,7 @@ function App(props) {
           <Route path="/" element={<Profile />} />
           <Route path="profile" element={<Profile />} />
           <Route path="dialogs/*" element={<DialogsContainer />} />
-          <Route path="users" element={<Users />} />
+          <Route path="users" element={<UsersContainer />} />
           <Route path="news" element={<News />} />
           <Route path="music" element={<Music />} />
           <Route path="settings" element={<Settings />} />
