@@ -1,10 +1,5 @@
 let initialState = {
-    users: [
-        { id: 1, fullName: 'Adam', status: 'Живём-живём!', followed: true, location: { country: 'Montenegro', city: 'Herceg-Novi' } },
-        { id: 2, fullName: 'Nastya', status: 'Жизнь прекрасна, как никогда!', followed: false, location: { country: 'Russia', city: 'Moscow' } },
-        { id: 3, fullName: 'Julia', status: 'Увлекаюсь историей и чем-то ещё', followed: true, location: { country: 'Ukraine', city: 'Kyiv' } },
-        { id: 4, fullName: 'Evgeny', status: 'На работе...', followed: true, location: { country: 'Kazakhstan', city: 'Astana' } },
-    ]
+    users: []
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -12,7 +7,7 @@ const usersReducer = (state = initialState, action) => {
         case 'SET_USERS':
             return {
                 ...state,
-                users: [...state.users, action.users]
+                users: [...state.users, ...action.users]
             }
         case 'FOLLOW':
             return {
