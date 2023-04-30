@@ -1,16 +1,29 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { NavLink } from 'react-router-dom';
 import s from './UsersItem.module.css';
 
-function DialogItem(props) {
+function UsersItem(props) {
     return (
-        <NavLink to={"/dialogs/" + props.id} className={({ isActive }) => isActive ? s.active : ""}>
-            <div className={s.dialogItem}>
-                <img src="https://cdn.shopify.com/s/files/1/0276/9341/6585/files/Sleeping_Cat_Square_600x600@2x.jpg?v=1580223452" />
-                <span>{props.name}</span>
+        <div className={s.wrapper}>
+            <div className={s.leftBlock}>
+                <img className={s.userLogo} src='https://ih0.redbubble.net/image.846505062.7003/flat,1000x1000,075,f.jpg' />
+                <button className={s.followButton}>{props.followStatus}</button>
             </div>
-        </NavLink>
+            <div className={s.middleBlock}>
+                <div className={s.userName}>
+                    {props.userName}
+                </div>
+                <div className={s.userStatus}>
+                    {props.userStatus}
+                </div>
+            </div>
+            <div className={s.rightBlock}>
+                <div className={s.userLocation}>
+                    <div>{props.userLocation.country},</div>
+                    <div>{props.userLocation.city}</div>
+                </div>
+            </div>
+        </div>
     );
 }
 
-export default DialogItem;
+export default UsersItem;

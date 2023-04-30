@@ -1,0 +1,53 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 75px auto 105px;
+    grid-template-rows: 1fr;
+    background-color: rgb(150, 204, 226);
+    color: black;
+    padding: 10px;
+    width: auto;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.userLogo {
+    display: block;
+    border-radius: 50px;
+    width: 75px;
+    height: 75px;
+}
+
+.leftBlock {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.middleBlock {
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr;
+    padding: 0px 10px 0px 10px;
+}
+
+.rightBlock {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.userName {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.userStatus {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.userLocation {
+    text-align: right;
+    word-wrap: break-word;
+    padding: 5px;
+}

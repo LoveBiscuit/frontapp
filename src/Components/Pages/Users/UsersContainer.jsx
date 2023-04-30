@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { followActionCreator, unfollowActionCreator } from '../../../Redux/usersReducer';
+import { followActionCreator, setUsersActionCreator, unfollowActionCreator } from '../../../Redux/usersReducer';
 import Users from './Users';
 import { connect } from 'react-redux';
 
@@ -11,6 +11,7 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
+        setUsers: (users) => dispatch(setUsersActionCreator(users)),
         follow: (userID) => dispatch(followActionCreator(userID)),
         unfollow: (userID) => dispatch(unfollowActionCreator(userID))
     }
