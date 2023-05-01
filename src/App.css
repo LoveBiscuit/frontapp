@@ -26,3 +26,7 @@ textarea {
   outline: none;
   resize: none;
 }
+
+button, img {
+  user-select: none;
+}
