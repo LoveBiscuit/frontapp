@@ -89,3 +89,26 @@
     word-wrap: break-word;
     padding: 5px;
 }
+
+.pageSelector {
+    display: block;
+    background-color: cornflowerblue;
+    text-align: center;
+    width: 275px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.selector {
+    display: inline;
+    cursor: pointer;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.active {
+    color: rgb(0, 0, 0);
+}
