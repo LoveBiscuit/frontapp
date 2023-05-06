@@ -1,0 +1,21 @@
+@keyframes loader {
+    from {
+        filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(-360deg);
+    }
+  }
+  
+  .loader {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25%;
+    margin-bottom: auto;
+    width: 10%;
+    height: 10%;
+    user-select: none;
+    pointer-events: none;
+    animation: loader 10s infinite linear;
+  }

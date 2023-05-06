@@ -4,6 +4,7 @@ import { followActionCreator, setCurrentPageActionCreator, setFetchingStatusActi
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Users from './Users';
+import Preloader from '../../Common/Preloader/Preloader';
 
 // UsersAPIComponent
 
@@ -15,6 +16,7 @@ class UsersContainer extends React.Component {
             .then(res => {
                 this.props.setUsers(res.data.items);
                 this.props.setTotalUsersCount(res.data.totalCount);
+
                 this.props.setFetching(false);
             });
     };
@@ -26,6 +28,7 @@ class UsersContainer extends React.Component {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(res => {
                 this.props.setUsers(res.data.items);
+
                 this.props.setFetching(false);
             });
     };
@@ -45,7 +48,9 @@ class UsersContainer extends React.Component {
                 />
             )
         } else {
-            return <div>Загружаюсь...</div>
+            return (
+                <Preloader />
+            )
         }
     }
 }
