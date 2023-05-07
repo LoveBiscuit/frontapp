@@ -4,12 +4,6 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
 function MyPosts(props) {
-    let postList = props.posts;
-
-    // Отображение постов и их сортировка
-    let postsElements = postList
-        .map((el, i) => (<Post key={i} message={el.post} likesCount={el.likesCount} />));
-
     // Текстовая форма, связь с store
     let onAddPost = () => {
         props.addPost();
@@ -22,20 +16,27 @@ function MyPosts(props) {
         props.updateNewPostText(text);
     }
 
+    // Отображение постов и их сортировка
+    let postsElements = props.postsData
+        .map((p, id) => (<div className={s.post} key={id}>
+            <Post message={p.post} likesCount={p.likesCount} />
+        </div>
+        ));
+
     return (
         <div>
-            <h3>My posts</h3>
-            <div>
+            <div className={s.addPostArea}>
                 <div>
-                    <textarea
+                    <textarea className={s.postTextarea}
                         onChange={onTextareaChange}
-                        value={newPostTextarea} />
+                        value={newPostTextarea}
+                    />
                 </div>
                 <div>
-                    <button onClick={onAddPost}>Add post</button>
+                    <button disabled={newPostTextarea.length < 3} className={s.postButton} onClick={onAddPost}>Добавить пост</button>
                 </div>
             </div>
-            <div className={s.posts}>
+            <div className={s.postsArea}>
                 {postsElements.reverse()}
             </div>
         </div>

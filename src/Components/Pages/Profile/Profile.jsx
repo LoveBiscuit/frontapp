@@ -1,14 +1,23 @@
 /* eslint-disable jsx-a11y/alt-text */
 import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import MyPostsContainer from './My Posts/MyPostsContainer';
+import MyPosts from './My Posts/MyPosts';
 
 function Profile(props) {
     return (
         <div className={s.wrapper}>
-            <ProfileInfo />
+            <div className={s.profileInfoWrapper}>
+                <h3>Профиль пользователя</h3>
+                <ProfileInfo profile={props.userProfile} />
+            </div>
             <div className={s.postsWrapper}>
-                <MyPostsContainer store={props.store} />
+                <h3>Мои посты</h3>
+                <MyPosts
+                    postsData={props.postsData}
+                    postTextarea={props.postTextarea}
+                    addPost={props.addPost}
+                    updateNewPostText={props.updateNewPostText}
+                />
             </div>
         </div>
     );

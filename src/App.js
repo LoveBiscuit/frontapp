@@ -2,13 +2,13 @@ import { Routes, Route } from "react-router-dom";
 import './App.css';
 import Header from './Components/Header/Header';
 import Navbar from './Components/Navbar/Navbar';
-import Profile from './Components/Pages/Profile/Profile';
 import News from './Components/Pages/News/News';
 import Music from './Components/Pages/Music/Music';
 import Settings from './Components/Pages/Settings/Settings';
 import Footer from './Components/Footer/Footer';
 import DialogsContainer from "./Components/Pages/Dialogs/DialogsContainer";
 import UsersContainer from './Components/Pages/Users/UsersContainer';
+import ProfileContainer from "./Components/Pages/Profile/ProfileContainer";
 
 function App(props) {
   return (
@@ -17,8 +17,8 @@ function App(props) {
       <Navbar />
       <div className="contentWrapper">
         <Routes>
-          <Route path="/" element={<Profile />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="/" element={<ProfileContainer />} />
+          <Route path="profile/*" element={<ProfileContainer />} />
           <Route path="dialogs/*" element={<DialogsContainer />} />
           <Route path="users" element={<UsersContainer />} />
           <Route path="news" element={<News />} />

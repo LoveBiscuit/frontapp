@@ -1,8 +1,31 @@
-.posts {
-    margin-top: 15px;
+.addPostArea {
+    margin-top: 10px;
 }
 
-textarea {
-    width: 300px;
-    height: 100px;
+.postTextarea {
+    background-color: rgb(127, 172, 240);
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    width: 400px;
+    height: 150px;
+}
+
+.postButton {
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    width: 130px;
+    height: 30px;
+}
+
+.postButton:hover {
+    filter: brightness(90%);
+    transition-duration: 0.5s;
+    cursor: pointer;
 }
