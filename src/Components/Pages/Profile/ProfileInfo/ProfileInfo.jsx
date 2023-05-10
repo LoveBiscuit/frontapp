@@ -12,9 +12,15 @@ function ProfileInfo(props) {
                 {/* <div className={s.banner}>
                     <img alt="prop" src="https://thumbs.dreamstime.com/b/space-background-wide-colorful-cosmos-banner-realistic-galaxy-bright-stars-nebula-shining-constellations-futuristic-cosmic-224335559.jpg" />
                 </div> */}
-                <div className={s.description}>
-                    <img src={props.profile.photos.small ? props.profile.photos.large : userAvar} />
-                    <div>
+                <img className={s.userPhoto} src={props.profile.photos.small ? props.profile.photos.large : userAvar} />
+                <div className={s.aboutMe}>
+                    <div className={s.userName}>
+                        {props.profile.fullName}
+                    </div>
+                    <div className={s.userId}>
+                        {props.profile.userId}
+                    </div>
+                    <div className={s.description}>
                         {props.profile.aboutMe}
                     </div>
                 </div>

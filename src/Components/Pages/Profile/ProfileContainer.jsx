@@ -4,10 +4,13 @@ import { connect } from 'react-redux';
 import { addPost, updateNewPostText, setUserProfile } from './../../../Redux/profileReducer';
 import Profile from './Profile';
 import axios from 'axios';
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${28906}`)
+        let profileID = !this.props.router.params.profileID ? 2 : this.props.router.params.profileID;
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${profileID}`)
             .then(res => {
                 this.props.setUserProfile(res.data);
             });
@@ -30,8 +33,25 @@ function mapDispatchToProps(state) {
     }
 }
 
+// wrapper to use react router's v6 hooks in class component(to use HOC pattern, like in router v5)
+function withRouter(Component) {
+    function ComponentWithRouterProp(props) {
+        let location = useLocation();
+        let navigate = useNavigate();
+        let params = useParams();
+        return (
+            <Component
+                {...props}
+                router={{ location, navigate, params }}
+            />
+        );
+    }
+
+    return ComponentWithRouterProp;
+}
+
 export default connect(mapDispatchToProps, {
     setUserProfile,
     addPost,
     updateNewPostText
-})(ProfileContainer);
+})(withRouter(ProfileContainer));
