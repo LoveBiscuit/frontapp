@@ -3,7 +3,7 @@
 .appWrapper {
   display: grid;
   grid-template-columns: 200px 4fr;
-  grid-template-rows: 100px 100% 1fr;
+  grid-template-rows: auto 100% 1fr;
 }
 
 .contentWrapper {
