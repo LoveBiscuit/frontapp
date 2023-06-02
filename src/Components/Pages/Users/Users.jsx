@@ -38,8 +38,8 @@ function Users(props) {
                                     <img className={s.userPhoto} src={u.photos.small != null ? u.photos.small : userAvatar} />
                                 </NavLink>
                                 {u.followed
-                                    ? <button onClick={() => props.unfollow(u.id)} className={s.unfollowButton}>Unfollow</button>
-                                    : <button onClick={() => props.follow(u.id)} className={s.followButton}>Follow</button>
+                                        ? <button disabled={props.buttonInProgress.some(id => id === u.id)} onClick={() => props.unfollowToServer(u.id)} className={props.buttonInProgress.some(id => id === u.id) ? s.disabledButton : s.unfollowButton}>Unfollow</button>
+                                        : <button disabled={props.buttonInProgress.some(id => id === u.id)} onClick={() => props.followToServer(u.id)} className={props.buttonInProgress.some(id => id === u.id) ? s.disabledButton : s.followButton}>Follow</button>
                                 }
                             </div>
                             <div className={s.middleBlock}>

@@ -1,9 +1,12 @@
+import { usersAPI } from "../API/API";
+
 let initialState = {
     users: [],
     pageSize: 10,
     currentPage: 1,
     totalUsersCount: 0,
-    isFetching: false
+    isFetching: false,
+    buttonInProgress: []
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -27,6 +30,13 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: action.fetchStatus
+            }
+        case 'SET_BUTTON_STATUS':
+            return {
+                ...state,
+                buttonInProgress: action.buttonStatus
+                    ? [...state.buttonInProgress, action.userID]
+                    : state.buttonInProgress.filter(id => id !== action.userID)
             }
         case 'FOLLOW':
             return {
@@ -53,11 +63,30 @@ const usersReducer = (state = initialState, action) => {
     }
 };
 
+// Action Creators
+
 export const setUsers = (users) => ({ type: 'SET_USERS', users });
 export const setTotalUsersCount = (totalCount) => ({ type: 'SET_TOTAL_USERS_COUNT', totalCount });
 export const setCurrentPage = (currentPage) => ({ type: 'SET_CURRENT_PAGE', currentPage });
-export const setFetchingStatus = (fetchStatus) => ({ type: 'SET_FETCHING_STATUS', fetchStatus})
+export const setFetchingStatus = (fetchStatus) => ({ type: 'SET_FETCHING_STATUS', fetchStatus });
+export const setButtonStatus = (buttonStatus, userID) => ({ type: 'SET_BUTTON_STATUS', buttonStatus, userID })
 export const follow = (userID) => ({ type: 'FOLLOW', userID });
 export const unfollow = (userID) => ({ type: 'UNFOLLOW', userID });
+
+// Thunk Creators
+
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setFetchingStatus(true));
+
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(setUsers(data.items));
+                dispatch(setTotalUsersCount(data.totalCount));
+
+                dispatch(setFetchingStatus(false));
+            });
+    }
+}
 
 export default usersReducer;

@@ -1,43 +1,77 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
-import { follow, setCurrentPage, setFetchingStatus, setTotalUsersCount, setUsers, unfollow } from '../../../Redux/usersReducer';
+import { follow, setCurrentPage, setFetchingStatus, setTotalUsersCount, setUsers, unfollow, getUsersThunkCreator } from '../../../Redux/usersReducer';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import Users from './Users';
 import Preloader from '../../Common/Preloader/Preloader';
+import { usersAPI } from '../../../API/API';
+import { setButtonStatus } from './../../../Redux/usersReducer';
 
 // UsersAPIComponent
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.setFetchingStatus(true);
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(res => {
-                this.props.setUsers(res.data.items);
-                this.props.setTotalUsersCount(res.data.totalCount);
+        // this.props.setFetchingStatus(true);
 
-                this.props.setFetchingStatus(false);
-            });
+        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+        //     .then(data => {
+        //         this.props.setUsers(data.items);
+        //         this.props.setTotalUsersCount(data.totalCount);
+
+        //         this.props.setFetchingStatus(false);
+        //     });
     };
 
     onPageChanged = (pageNumber) => {
         this.props.setFetchingStatus(true);
 
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(res => {
-                this.props.setUsers(res.data.items);
+
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items);
 
                 this.props.setFetchingStatus(false);
             });
     };
+
+    followToServer = (userID) => {
+        this.props.setButtonStatus(true, userID);
+
+        usersAPI.userFollow(userID)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    this.props.follow(userID)
+                } else {
+                    console.error(data);
+                }
+
+                this.props.setButtonStatus(false, userID);
+            })
+    }
+
+    unfollowToServer = (userID) => {
+        this.props.setButtonStatus(true, userID);
+
+        usersAPI.userUnfollow(userID)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    this.props.unfollow(userID)
+                }
+
+                this.props.setButtonStatus(false, userID);
+            })
+    }
 
     render() {
         if (this.props.isFetching === false) {
             return (
                 <Users
                     {...this.props}
+                    followToServer={this.followToServer}
+                    unfollowToServer={this.unfollowToServer}
                     onPageChanged={this.onPageChanged}
                 />
             )
@@ -57,7 +91,8 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
         totalUsersCount: state.usersPage.totalUsersCount,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        buttonInProgress: state.usersPage.buttonInProgress
     }
 }
 
@@ -66,6 +101,8 @@ export default connect(mapStateToProps, {
     setTotalUsersCount,
     setCurrentPage,
     setFetchingStatus,
+    setButtonStatus,
     follow,
-    unfollow
+    unfollow,
+    getUsersThunkCreator
 })(UsersContainer);

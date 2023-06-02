@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import './App.css';
-import Header from './Components/Header/Header';
 import Navbar from './Components/Navbar/Navbar';
 import News from './Components/Pages/News/News';
 import Music from './Components/Pages/Music/Music';
@@ -9,11 +8,12 @@ import Footer from './Components/Footer/Footer';
 import DialogsContainer from "./Components/Pages/Dialogs/DialogsContainer";
 import UsersContainer from './Components/Pages/Users/UsersContainer';
 import ProfileContainer from "./Components/Pages/Profile/ProfileContainer";
+import HeaderContainer from "./Components/Header/HeaderContainer";
 
 function App(props) {
   return (
     <div className="appWrapper">
-      <Header />
+      <HeaderContainer />
       <Navbar />
       <div className="contentWrapper">
         <Routes>

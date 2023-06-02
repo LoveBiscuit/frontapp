@@ -47,6 +47,18 @@
     transition-duration: 0.5s;
 }
 
+.disabledButton {
+    background-color: rgb(243, 243, 243);
+    color: rgb(122, 122, 122);
+    outline: none;
+    border-style: none;
+    text-align: center;
+    width: 65px;
+    height: 25px;
+    border-radius: 5px;
+    transition-duration: 0.5s;
+}
+
 .followButton:hover, .unfollowButton:hover {
     filter: brightness(90%);
     transition-duration: 0.5s;
