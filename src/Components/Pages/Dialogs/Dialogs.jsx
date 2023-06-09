@@ -3,6 +3,7 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
+import { Navigate } from 'react-router-dom';
 
 function Dialogs(props) {
     let dialogList = props.dialogs;
@@ -33,6 +34,10 @@ function Dialogs(props) {
     let onTextareaChange = (e) => {
         let text = e.target.value;
         props.updateNewDialogText(text);
+    }
+
+    if (!props.isAuth) {
+        return <Navigate to={'/Login'}/>
     }
 
     return (

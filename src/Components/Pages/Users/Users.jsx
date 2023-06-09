@@ -5,10 +5,10 @@ import userAvatar from '../../../Assets/Images/userAvatar.jpg'
 import { NavLink } from 'react-router-dom';
 
 function Users(props) {
-    let paginator = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pageCounter = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
 
-    for (let i = 1; i <= paginator; i++) {
+    for (let i = 1; i <= pageCounter; i++) {
         pages.push(i)
     }
 
@@ -16,11 +16,12 @@ function Users(props) {
         <div className={s.mainWrapper}>
             <div className={s.pageSelector}>
                 {
-                    pages.map((p, id) => {
-                        if (p <= 10) {
+                    pages.map((page, id) => {
+                        if (page <= 10) {
                             return (
                                 <div key={id} className={s.selector}>
-                                    <span onClick={() => { props.onPageChanged(p) }} className={props.currentPage === p ? s.active : ""}>{p}</span>
+                                    <span onClick={() => { props.changePage(page) }}
+                                        className={props.currentPage === page ? s.active : ""}>{page}</span>
                                 </div>
                             )
                         }
@@ -38,8 +39,12 @@ function Users(props) {
                                     <img className={s.userPhoto} src={u.photos.small != null ? u.photos.small : userAvatar} />
                                 </NavLink>
                                 {u.followed
-                                        ? <button disabled={props.buttonInProgress.some(id => id === u.id)} onClick={() => props.unfollowToServer(u.id)} className={props.buttonInProgress.some(id => id === u.id) ? s.disabledButton : s.unfollowButton}>Unfollow</button>
-                                        : <button disabled={props.buttonInProgress.some(id => id === u.id)} onClick={() => props.followToServer(u.id)} className={props.buttonInProgress.some(id => id === u.id) ? s.disabledButton : s.followButton}>Follow</button>
+                                    ? <button disabled={props.buttonInProgress.some(id => id === u.id)}
+                                        onClick={() => props.unfollow(u.id)}
+                                        className={props.buttonInProgress.some(id => id === u.id) ? s.disabledButton : s.unfollowButton}>Unfollow</button>
+                                    : <button disabled={props.buttonInProgress.some(id => id === u.id)}
+                                        onClick={() => props.follow(u.id)}
+                                        className={props.buttonInProgress.some(id => id === u.id) ? s.disabledButton : s.followButton}>Follow</button>
                                 }
                             </div>
                             <div className={s.middleBlock}>
@@ -55,8 +60,6 @@ function Users(props) {
                             <div className={s.rightBlock}>
                                 <div className={s.userLocation}>
                                     {u.id}
-                                    {/* <div>{u.location.country},</div> */}
-                                    {/* <div>{u.location.city}</div> */}
                                 </div>
                             </div>
                         </div>

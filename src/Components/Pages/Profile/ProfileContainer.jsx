@@ -1,22 +1,19 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import { connect } from 'react-redux';
-import { addPost, updateNewPostText, setUserProfile } from './../../../Redux/profileReducer';
+import { addPost, updateNewPostText, setUserProfile, getProfile } from './../../../Redux/profileReducer';
 import Profile from './Profile';
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { profileAPI } from '../../../API/API';
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        let profileID = !this.props.router.params.profileID ? 2 : this.props.router.params.profileID;
-
-        profileAPI.getProfile(profileID)
-            .then(data => {
-                this.props.setUserProfile(data);
-            });
+        this.props.getProfile(this.props.router.params.profileID, this.props.authID);
     }
-
+    
     render() {
+        if (!this.props.isAuth) {
+            return <Navigate to={'/Login'}/>
+        }
         return (
             <div>
                 <Profile {...this.props} />
@@ -27,9 +24,10 @@ class ProfileContainer extends React.Component {
 
 function mapStateToProps(state) {
     return {
+        isAuth: state.auth.isAuth,
         userProfile: state.profilePage.userProfile,
         postsData: state.profilePage.postsData,
-        postTextarea: state.profilePage.postTextarea
+        postTextarea: state.profilePage.postTextarea,
     }
 }
 
@@ -53,5 +51,6 @@ function withRouter(Component) {
 export default connect(mapStateToProps, {
     setUserProfile,
     addPost,
-    updateNewPostText
+    updateNewPostText,
+    getProfile
 })(withRouter(ProfileContainer));

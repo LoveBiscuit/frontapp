@@ -9,9 +9,6 @@ function ProfileInfo(props) {
     } else {
         return (
             <div className={s.wrapper}>
-                {/* <div className={s.banner}>
-                    <img alt="prop" src="https://thumbs.dreamstime.com/b/space-background-wide-colorful-cosmos-banner-realistic-galaxy-bright-stars-nebula-shining-constellations-futuristic-cosmic-224335559.jpg" />
-                </div> */}
                 <img className={s.userPhoto} src={props.profile.photos.small ? props.profile.photos.large : userAvar} />
                 <div className={s.aboutMe}>
                     <div className={s.userName}>

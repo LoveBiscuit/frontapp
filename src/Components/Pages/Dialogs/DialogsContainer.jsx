@@ -5,6 +5,7 @@ import { addMessage, updateNewDialogText } from './../../../Redux/dialogsReducer
 
 let mapStateToProps = (state) => {
     return {
+        isAuth: state.auth.isAuth,
         dialogTextarea: state.dialogsPage.dialogTextarea,
         dialogs: state.dialogsPage.dialogsData,
         messages: state.dialogsPage.messagesData

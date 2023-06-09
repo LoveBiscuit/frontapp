@@ -1,78 +1,25 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
-import { follow, setCurrentPage, setFetchingStatus, setTotalUsersCount, setUsers, unfollow, getUsersThunkCreator } from '../../../Redux/usersReducer';
+import { getUsers, follow, unfollow } from '../../../Redux/usersReducer';
 import { connect } from 'react-redux';
 import Users from './Users';
 import Preloader from '../../Common/Preloader/Preloader';
-import { usersAPI } from '../../../API/API';
-import { setButtonStatus } from './../../../Redux/usersReducer';
 
 // UsersAPIComponent
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
-
-        // this.props.setFetchingStatus(true);
-
-        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-        //     .then(data => {
-        //         this.props.setUsers(data.items);
-        //         this.props.setTotalUsersCount(data.totalCount);
-
-        //         this.props.setFetchingStatus(false);
-        //     });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     };
-
-    onPageChanged = (pageNumber) => {
-        this.props.setFetchingStatus(true);
-
-        this.props.setCurrentPage(pageNumber);
-
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.setUsers(data.items);
-
-                this.props.setFetchingStatus(false);
-            });
-    };
-
-    followToServer = (userID) => {
-        this.props.setButtonStatus(true, userID);
-
-        usersAPI.userFollow(userID)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.follow(userID)
-                } else {
-                    console.error(data);
-                }
-
-                this.props.setButtonStatus(false, userID);
-            })
-    }
-
-    unfollowToServer = (userID) => {
-        this.props.setButtonStatus(true, userID);
-
-        usersAPI.userUnfollow(userID)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.unfollow(userID)
-                }
-
-                this.props.setButtonStatus(false, userID);
-            })
-    }
 
     render() {
         if (this.props.isFetching === false) {
             return (
                 <Users
                     {...this.props}
-                    followToServer={this.followToServer}
-                    unfollowToServer={this.unfollowToServer}
-                    onPageChanged={this.onPageChanged}
+                    follow={this.props.follow}
+                    unfollow={this.props.unfollow}
+                    changePage={this.props.getUsers}
                 />
             )
         } else {
@@ -97,12 +44,7 @@ let mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    setUsers,
-    setTotalUsersCount,
-    setCurrentPage,
-    setFetchingStatus,
-    setButtonStatus,
+    getUsers,
     follow,
-    unfollow,
-    getUsersThunkCreator
+    unfollow
 })(UsersContainer);

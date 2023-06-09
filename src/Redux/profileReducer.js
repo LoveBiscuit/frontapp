@@ -1,3 +1,5 @@
+import { profileAPI } from "../API/API";
+
 let initialState = {
     userProfile: null,
     postsData: [
@@ -40,8 +42,23 @@ const profileReducer = (state = initialState, action) => {
     }
 };
 
+// Action Creator
+
 export const setUserProfile = (userProfile) => ({ type: 'SET_USER_PROFILE', userProfile})
 export const addPost = () => ({ type: 'ADD-POST' });
 export const updateNewPostText = (text) => ({ type: 'UPDATE-NEW-POST-TEXT', value: text });
+
+// Thunk Creator
+
+export const getProfile = (profileID, authID) => {
+    return (dispatch) => {
+        let userID = !profileID ? 2 : profileID;
+
+        profileAPI.getProfile(userID)
+            .then(data => {
+                dispatch(setUserProfile(data));
+            });
+    }
+}
 
 export default profileReducer;
