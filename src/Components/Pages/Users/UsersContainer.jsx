@@ -4,6 +4,9 @@ import { getUsers, follow, unfollow } from '../../../Redux/usersReducer';
 import { connect } from 'react-redux';
 import Users from './Users';
 import Preloader from '../../Common/Preloader/Preloader';
+// import withAuthRedirect from '../../../HOC/withAuthRedirect';
+import { compose } from '@reduxjs/toolkit';
+import { getButtonInProgressFromState, getCurrentPageFromState, getIsFetchingFromState, getPageSizeFromState, getTotalUsersCountFromState, getUsersFromState } from '../../../Redux/usersSelectors';
 
 // UsersAPIComponent
 
@@ -13,6 +16,7 @@ class UsersContainer extends React.Component {
     };
 
     render() {
+        console.log('users rendered');
         if (this.props.isFetching === false) {
             return (
                 <Users
@@ -32,19 +36,25 @@ class UsersContainer extends React.Component {
 
 // UsersContainer
 
-let mapStateToProps = (state) => {
+function mapStateToProps(state) {
+    console.log('users state changed');
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        currentPage: state.usersPage.currentPage,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        isFetching: state.usersPage.isFetching,
-        buttonInProgress: state.usersPage.buttonInProgress
+        users: getUsersFromState(state),
+        pageSize: getPageSizeFromState(state),
+        currentPage: getCurrentPageFromState(state),
+        totalUsersCount: getTotalUsersCountFromState(state),
+        isFetching: getIsFetchingFromState(state),
+        buttonInProgress: getButtonInProgressFromState(state)
     }
 }
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
     getUsers,
     follow,
     unfollow
-})(UsersContainer);
+}
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    // withAuthRedirect
+)(UsersContainer);

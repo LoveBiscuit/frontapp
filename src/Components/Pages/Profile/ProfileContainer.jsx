@@ -1,19 +1,21 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import { connect } from 'react-redux';
-import { addPost, updateNewPostText, setUserProfile, getProfile } from './../../../Redux/profileReducer';
+import { addPost, setUserProfile, setUserStatus, getProfile, getStatus, updateStatus } from './../../../Redux/profileReducer';
 import Profile from './Profile';
-import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import withAuthRedirect from '../../../HOC/withAuthRedirect';
+import withRouter from '../../../HOC/withRouter';
+import { compose } from '@reduxjs/toolkit';
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        this.props.getProfile(this.props.router.params.profileID, this.props.authID);
+        this.props.getProfile(this.props.router.params.profileID, this.props.authorizedUserID);
+
+        this.props.getStatus(this.props.router.params.profileID, this.props.authorizedUserID);
     }
-    
+
     render() {
-        if (!this.props.isAuth) {
-            return <Navigate to={'/Login'}/>
-        }
+        // console.log('render rerendered');
         return (
             <div>
                 <Profile {...this.props} />
@@ -23,34 +25,26 @@ class ProfileContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
+    // console.log('state changed');
     return {
-        isAuth: state.auth.isAuth,
+        authorizedUserID: state.auth.id,
         userProfile: state.profilePage.userProfile,
+        userStatus: state.profilePage.userStatus,
         postsData: state.profilePage.postsData,
-        postTextarea: state.profilePage.postTextarea,
     }
 }
 
-// wrapper to use react router's v6 hooks in class component(to use HOC pattern, like in router v5)
-function withRouter(Component) {
-    function ComponentWithRouterProp(props) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
-        );
-    }
-
-    return ComponentWithRouterProp;
-}
-
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
     setUserProfile,
+    setUserStatus,
     addPost,
-    updateNewPostText,
-    getProfile
-})(withRouter(ProfileContainer));
+    getProfile,
+    getStatus,
+    updateStatus
+}
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect,
+    withRouter
+)(ProfileContainer);

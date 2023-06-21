@@ -29,10 +29,10 @@ function Header(props) {
                 <div className={s.loginBlock}>
                     <div className={s.miniProfile}>
                         <div>
-                            <NavLink to={`/profile/${props.id}`}>{props.login}</NavLink>
+                            <NavLink to={`/profile`}>{props.login}</NavLink>
                         </div>
                         <div>
-                            <NavLink to={`/logout/${props.id}`}>Выйти</NavLink>
+                            <NavLink onClick={props.logout} to={`/profile/`}>Выйти</NavLink>
                         </div>
                     </div>
                 </div>

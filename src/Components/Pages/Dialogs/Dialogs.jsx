@@ -3,7 +3,7 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
-import { Navigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 function Dialogs(props) {
     let dialogList = props.dialogs;
@@ -16,28 +16,10 @@ function Dialogs(props) {
     let messagesElements = messageList
         .map((el, i) => <MessageItem key={i} message={el.message} />);
 
-    // Если мы нажимаем Enter, сообщение отправляется
-    let onEnterPress = (e) => {
-        if (e.keyCode === 13 && e.shiftKey === false) {
-            e.preventDefault();
-            sendMessage();
-        }
-    }
-
     // Работа с Action'ами
-    let sendMessage = () => {
-        props.addMessage();
-    }
-
-    let newDialogTextarea = props.dialogTextarea;
-    
-    let onTextareaChange = (e) => {
-        let text = e.target.value;
-        props.updateNewDialogText(text);
-    }
-
-    if (!props.isAuth) {
-        return <Navigate to={'/Login'}/>
+    let sendMessage = (text, reset, defaultValues) => {
+        props.addMessage(text);
+        reset(defaultValues);
     }
 
     return (
@@ -48,21 +30,60 @@ function Dialogs(props) {
             <div className={s.messagesItems}>
                 {messagesElements}
                 <div className={s.messageForm}>
-                    <div>
-                        <textarea
-                            onChange={onTextareaChange}
-                            value={newDialogTextarea}
-                            onKeyDown={onEnterPress}
-                            placeholder='Enter your message here.'
-                        />
-                    </div>
-                    <div>
-                        <button onClick={sendMessage}>Send</button>
-                    </div>
+                    <DialogForm sendMessage={sendMessage} />
                 </div>
             </div>
         </div>
     );
+}
+
+function DialogForm(props) {
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm({});
+
+    // Отправка формы при нажатии Enter
+    const handleUserKeyPress = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit(data => props.sendMessage(data.textarea, reset, defaultValues))();
+        }
+    }
+
+    const defaultValues = {
+        textarea: ''
+    }
+
+    return (
+        <>
+            <form onSubmit={handleSubmit(data => props.sendMessage(data.textarea, reset, defaultValues))}>
+                <div>
+                    <textarea onKeyDown={handleUserKeyPress} placeholder='Enter your message here.' {...register('textarea', {
+                        required: 'Textarea can not be empty.',
+                        pattern: {
+                            value: /^(?!\s*$).+/,
+                            message: 'Non-correct value.'
+                        },
+                        minLength: {
+                            value: 1,
+                            message: ''
+                        },
+                        maxLength: {
+                            value: 5000,
+                            message: `Message cannot exceed 5000 characters`
+                        }
+                    })} />
+                    {errors.textarea && <p>{errors.textarea?.message}</p>}
+                </div>
+                <div>
+                    <input type='submit' />
+                </div>
+            </form>
+        </>
+    )
 }
 
 export default Dialogs;
