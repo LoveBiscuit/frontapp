@@ -1,12 +1,14 @@
 import { userAuth } from "./authReducer";
 
+const SET_INITIALIZED = '/frontapp/app/SET_INITIALIZED';
+
 let initialState = {
     initialized: false
 };
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_INITIALIZED':
+        case SET_INITIALIZED:
             return {
                 ...state,
                 initialized: true
@@ -20,7 +22,7 @@ const appReducer = (state = initialState, action) => {
     }
 };
 
-export const initializedSuccess = () => ({type: 'SET_INITIALIZED'});
+export const initializedSuccess = () => ({type: '/frontapp/app/SET_INITIALIZED'});
 
 export const appInitializer = () => {
     return (dispatch) => {

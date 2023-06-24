@@ -15,7 +15,6 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        // console.log('render rerendered');
         return (
             <div>
                 <Profile {...this.props} />

@@ -4,12 +4,15 @@ import { useForm } from 'react-hook-form';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
-function MyPosts(props) {
+const MyPosts = React.memo((props) => {
+    console.log('rendered');
     // Отображение постов и их сортировка
-    let postsElements = props.postsData
-        .map((p, id) => (<div className={s.post} key={id}>
-            <Post message={p.post} likesCount={p.likesCount} />
-        </div>
+    let postsElements = [...props.postsData]
+        .reverse()
+        .map((p, id) => (
+            <div className={s.post} key={id}>
+                <Post message={p.post} likesCount={p.likesCount} />
+            </div>
         ));
 
     let addPost = (text, reset, defaultValues) => {
@@ -23,14 +26,14 @@ function MyPosts(props) {
                 <MyPostForm addPost={addPost} />
             </div>
             <div className={s.postsArea}>
-                {postsElements.reverse()}
+                {postsElements}
             </div>
         </div>
     );
-}
+});
 
 function MyPostForm(props) {
-    const [valueCount, setCount] = useState(0);
+    const [valueCount, setCount] = useState(300);
 
     const {
         register,
@@ -46,14 +49,18 @@ function MyPostForm(props) {
     };
 
     function testError(error) {
-        setError('serverError', {type: 'custom', message: error})
+        setError('serverError', { type: 'custom', message: error })
     }
 
-
+    // getValues().textarea.length 
 
     return (
         <>
-            <form onChange={() => setCount(getValues().textarea.length)} onSubmit={handleSubmit(data => props.addPost(data.textarea, reset, defaultValues))}>
+            <form onChange={() => setCount(300 - getValues().textarea.length)}
+                onSubmit={handleSubmit(data => {
+                    props.addPost(data.textarea, reset, defaultValues);
+                    setCount(300);
+                })}>
                 {errors.serverError && <p>{errors.serverError.message}</p>}
                 <div>
                     <textarea className={s.postTextarea} {...register('textarea', {
@@ -74,7 +81,7 @@ function MyPostForm(props) {
                     {errors.textarea && <p>{errors.textarea.message}</p>}
                 </div>
                 <div>
-                    {valueCount} / 300
+                    {Math.sign(valueCount) !== -1 ? valueCount : 0}
                 </div>
                 <div>
                     <button
@@ -82,7 +89,7 @@ function MyPostForm(props) {
                         onClick={() => testError('Серверный еррор')}>
                         Trigger Name Errors
                     </button>
-                    <input onClick={() => setCount(0)} className={s.postButton} type='submit' />
+                    <input className={s.postButton} type='submit' />
                 </div>
             </form>
         </>

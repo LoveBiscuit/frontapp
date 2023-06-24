@@ -2,7 +2,8 @@
 import s from './ProfileInfo.module.css';
 import userAvar from '../../../../Assets/Images/userAvatar.jpg';
 import Preloader from './../../../Common/Preloader/Preloader';
-import ProfileStatus from './ProfileStatus/ProfileStatus';
+// import ProfileStatus from './ProfileStatus/ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
 
 function ProfileInfo(props) {
     if (!props.profile) {
@@ -20,7 +21,7 @@ function ProfileInfo(props) {
                     </div>
                     <div className={s.description}>
                         {/* {props.profile.aboutMe} */}
-                        <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+                        <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
                     </div>
                 </div>
             </div>

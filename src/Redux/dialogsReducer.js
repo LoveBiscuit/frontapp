@@ -1,3 +1,5 @@
+const ADD_MESSAGE = '/frontapp/dialogs/ADD_MESSAGE';
+
 let initialState = {
     dialogsData: [
         { id: 1, name: 'Adam' },
@@ -19,7 +21,7 @@ let initialState = {
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD-MESSAGE':
+        case ADD_MESSAGE:
             return {
                 ...state,
                 messagesData: [...state.messagesData, { id: 0, message: action.text }]
@@ -29,6 +31,6 @@ const dialogsReducer = (state = initialState, action) => {
     }
 };
 
-export const addMessage = (text) => ({ type: 'ADD-MESSAGE', text });
+export const addMessage = (text) => ({ type: '/frontapp/dialogs/ADD_MESSAGE', text });
 
 export default dialogsReducer;
