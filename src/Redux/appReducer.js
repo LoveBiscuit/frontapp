@@ -25,9 +25,9 @@ const appReducer = (state = initialState, action) => {
 export const initializedSuccess = () => ({type: '/frontapp/app/SET_INITIALIZED'});
 
 export const appInitializer = () => {
-    return (dispatch) => {
-        let promise = dispatch(userAuth());
-        promise.then(() => dispatch(initializedSuccess()))
+    return async (dispatch) => {
+        await dispatch(userAuth());
+        dispatch(initializedSuccess())
     }
 }
 

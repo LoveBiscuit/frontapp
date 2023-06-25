@@ -103,7 +103,7 @@
 }
 
 .pageSelector {
-    display: block;
+    display: inline-block;
     background-color: cornflowerblue;
     text-align: center;
     width: 275px;
@@ -123,4 +123,14 @@
 
 .active {
     color: rgb(0, 0, 0);
+}
+
+.paginator button {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
+    font-size: 16px;
+    background-color: rgb(171, 192, 230);
 }
