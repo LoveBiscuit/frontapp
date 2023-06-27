@@ -4,28 +4,22 @@ import s from './Users.module.css';
 import userAvatar from '../../../Assets/Images/userAvatar.jpg'
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 function Users(props) {
-    let [startPage, setStartPage] = useState(1);
-    let [endPage, setEndPage] = useState(10);
-
     let pageCounter = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
 
-    console.log(startPage, endPage);
-
-    function goToPrevPaginator() {
-        setStartPage(startPage - 10);
-        setEndPage(endPage - 10);
-        console.log(startPage, endPage);
-    }
-
-    function goToNextPaginator() {
-        setStartPage(startPage + 10);
-        setEndPage(endPage + 10);
-        console.log(startPage, endPage);
-    }
+    let portionCount = Math.ceil(pageCounter / props.portionSize);
     
+    let [portionNumber, setPortionNumber] = useState(1);
+    let startPage = (portionNumber - 1) * props.portionSize + 1;
+    let endPage = portionNumber * props.portionSize;
+
+    useEffect(() => {
+        setPortionNumber(Math.ceil(props.currentPage / props.portionSize));
+    }, [props.currentPage, props.portionSize])
+
     for (let i = startPage; i <= pageCounter; i++) {
         pages.push(i)
     }
@@ -33,7 +27,7 @@ function Users(props) {
     return (
         <div className={s.mainWrapper}>
             <div className={s.paginator}>
-                <button onClick={() => goToPrevPaginator()} >Prev</button>
+                {startPage > 1 && <button onClick={() => setPortionNumber(portionNumber - 1)} >Prev</button>}
                 <div className={s.pageSelector}>
                     {
                         pages.map((page, id) => {
@@ -41,7 +35,7 @@ function Users(props) {
                                 return (
                                     <div key={id} className={s.selector}>
                                         <span onClick={() => { props.changePage(page) }}
-                                            className={props.currentPage === page ? s.active : ""}>{page}</span>
+                                            className={props.currentPage === page ? s.active : null}>{page}</span>
                                     </div>
                                 )
                             }
@@ -49,7 +43,7 @@ function Users(props) {
                         })
                     }
                 </div>
-                <button onClick={() => goToNextPaginator()} >Next</button>
+                {portionCount > portionNumber && <button onClick={() => setPortionNumber(portionNumber + 1)} >Next</button>}
             </div>
             {
                 props.users.map((u, id) => {

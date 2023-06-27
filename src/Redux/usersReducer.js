@@ -13,6 +13,7 @@ let initialState = {
     users: [],
     pageSize: 10,
     currentPage: 1,
+    portionSize: 10,
     totalUsersCount: 0,
     isFetching: false,
     buttonInProgress: []

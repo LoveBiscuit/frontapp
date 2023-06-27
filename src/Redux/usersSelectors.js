@@ -16,6 +16,10 @@ export const getCurrentPageFromState = (state) => {
     return state.usersPage.currentPage;
 }
 
+export const getPortionSizeFromState = (state) => {
+    return state.usersPage.portionSize;
+}
+
 export const getTotalUsersCountFromState = (state) => {
     return state.usersPage.totalUsersCount;
 }

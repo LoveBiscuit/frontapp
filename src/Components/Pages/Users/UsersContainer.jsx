@@ -6,7 +6,7 @@ import Users from './Users';
 import Preloader from '../../Common/Preloader/Preloader';
 // import withAuthRedirect from '../../../HOC/withAuthRedirect';
 import { compose } from '@reduxjs/toolkit';
-import { getButtonInProgressFromState, getCurrentPageFromState, getIsFetchingFromState, getPageSizeFromState, getTotalUsersCountFromState, getUsersFromStateSuper } from '../../../Redux/usersSelectors';
+import { getButtonInProgressFromState, getCurrentPageFromState, getIsFetchingFromState, getPageSizeFromState, getPortionSizeFromState, getTotalUsersCountFromState, getUsersFromStateSuper } from '../../../Redux/usersSelectors';
 
 // UsersAPIComponent
 
@@ -40,6 +40,7 @@ function mapStateToProps(state) {
         users: getUsersFromStateSuper(state),
         pageSize: getPageSizeFromState(state),
         currentPage: getCurrentPageFromState(state),
+        portionSize: getPortionSizeFromState(state),
         totalUsersCount: getTotalUsersCountFromState(state),
         isFetching: getIsFetchingFromState(state),
         buttonInProgress: getButtonInProgressFromState(state)
