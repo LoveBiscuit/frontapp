@@ -8,7 +8,7 @@ function Header(props) {
         return (
             <header className={s.header}>
                 <div className={s.appLogo}>
-                    <Link to="/"><img src={logo} /></Link>
+                    <Link to="/profile"><img src={logo} /></Link>
                 </div>
                 <div className={s.loginBlock}>
                     <div className={s.signinButton}>
@@ -24,7 +24,7 @@ function Header(props) {
         return (
             <header className={s.header}>
                 <div className={s.appLogo}>
-                    <Link to="/"><img src={logo} /></Link>
+                    <Link to="/profile"><img src={logo} /></Link>
                 </div>
                 <div className={s.loginBlock}>
                     <div className={s.miniProfile}>

@@ -8,7 +8,7 @@ import { Navigate } from 'react-router-dom';
 function Login(props) {
     // props.userLogin({email: 'qytslnlti@nightorb.com', password: 'troytroy123', rememberMe: false});
 
-    function sendUserDataToLogin(data) {
+    function onSubmit(data) {
         props.userLogin(data);
     }
 
@@ -19,7 +19,7 @@ function Login(props) {
     return (
         <>
             <div className={s.wrapper}>
-                <LoginForm sendUserDataToLogin={sendUserDataToLogin} authError={props.authError} />
+                <LoginForm onSubmit={onSubmit} authError={props.authError} captcha={props.authCaptcha} />
             </div>
         </>
     );
@@ -34,7 +34,7 @@ function LoginForm(props) {
 
     return (
         <>
-            <form onSubmit={handleSubmit((data) => props.sendUserDataToLogin(data))}>
+            <form onSubmit={handleSubmit(props.onSubmit)}>
                 {props.authError?.messages && <p className={s.formError}>{props.authError.messages}</p>}
                 <div className={s.formInput}>
                     <label htmlFor='email'>Email</label>
@@ -49,7 +49,7 @@ function LoginForm(props) {
                 </div>
                 <div className={s.formInput}>
                     <label htmlFor='password'>Password</label>
-                    <input type='password' id='password' placeholder='Password' {...register('password', {
+                    <input type='password' id='password' placeholder='Password' autoComplete='true' {...register('password', {
                         required: 'Password is required.',
                         minLength: {
                             value: 6,
@@ -68,6 +68,33 @@ function LoginForm(props) {
                         <span>Remember me?</span>
                     </label>
                 </div>
+                {props.captcha
+                    &&
+                    <div className={s.captchaLabel}>
+                        <center>
+                            <div>
+                                <b>Введите каптчу:</b>
+                            </div>
+                            <div>
+                                <img className={s.captchaImage} src={props.captcha} />
+                            </div>
+                            <div>
+                                <input className={s.captchaInput} id="captcha" {...register('captcha', {
+                                    required: 'Captcha is required.',
+                                    minLength: {
+                                        value: 4,
+                                        message: 'Captcha can\'t be less 5 symbols'
+                                    },
+                                    maxLength: {
+                                        value: 6,
+                                        message: 'Captcha 6-symbols limited.'
+                                    }
+                                })} />
+                                {errors.captcha && <p className={s.formError}>{errors.captcha?.message}</p>}
+                            </div>
+                        </center>
+                    </div>
+                }
                 <div className={s.formButton}>
                     {
                         errors?.email || errors?.password
@@ -83,7 +110,8 @@ function LoginForm(props) {
 function mapStateToProps(state) {
     return {
         isAuth: state.auth.isAuth,
-        authError: state.auth.authError
+        authError: state.auth.authError,
+        authCaptcha: state.auth.authCaptcha
     }
 }
 

@@ -15,19 +15,23 @@ const appReducer = (state = initialState, action) => {
             }
         case 'NULL':
             return {
-                
+
             }
         default:
             return state;
     }
 };
 
-export const initializedSuccess = () => ({type: '/frontapp/app/SET_INITIALIZED'});
+export const initializedSuccess = () => ({ type: '/frontapp/app/SET_INITIALIZED' });
 
 export const appInitializer = () => {
     return async (dispatch) => {
-        await dispatch(userAuth());
-        dispatch(initializedSuccess())
+        try {
+            await dispatch(userAuth());
+            dispatch(initializedSuccess());
+        } catch (error) {
+            console.error('У тебя проблемы, дружок:', error);
+        }
     }
 }
 

@@ -10,6 +10,7 @@
     padding: 10px;
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
+    color: black;
 }
 
 .userPhoto {
@@ -54,4 +55,25 @@
     padding: 10px;
     border-radius: 10px;
     background-color: rgb(207, 207, 207);
+}
+
+.editableInfo {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding-top: 10px;
+}
+
+.editableInfo textarea {
+    min-width: 250px;
+    min-height: 50px;
+    border: none;
+    background-color: rgb(216, 216, 216);
+    color: darkslateblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+p {
+    color: white;
 }

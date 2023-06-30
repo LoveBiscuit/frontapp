@@ -1,26 +1,35 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import { connect } from 'react-redux';
-import { addPost, setUserProfile, setUserStatus, getProfile, getStatus, updateStatus } from './../../../Redux/profileReducer';
+import { addPost, setUserProfile, setUserStatus, getProfile, getStatus, updateStatus, updateAvatar, updateProfile } from './../../../Redux/profileReducer';
 import Profile from './Profile';
 import withAuthRedirect from '../../../HOC/withAuthRedirect';
 import withRouter from '../../../HOC/withRouter';
 import { compose } from '@reduxjs/toolkit';
+import { useEffect } from 'react';
 
-class ProfileContainer extends React.Component {
-    componentDidMount() {
-        this.props.getProfile(this.props.router.params.profileID, this.props.authorizedUserID);
+function ProfileContainer(props) {
+    const { getProfile, getStatus } = props;
 
-        this.props.getStatus(this.props.router.params.profileID, this.props.authorizedUserID);
-    }
+    // useEffect(() => {
+    //     console.log('component did mount');
 
-    render() {
-        return (
-            <div>
-                <Profile {...this.props} />
-            </div>
-        )
-    }
+    //     return () => {
+    //         console.log('component did unmount');
+    //     }
+    // }, []);
+    
+    useEffect(() => {
+        const profileID = props.router.params.profileID;
+        getProfile(profileID);
+        getStatus(profileID);
+    }, [getProfile, getStatus, props.router.params.profileID]);
+
+    return (
+        <div>
+            <Profile {...props} isOwner={!props.router.params.profileID} />
+        </div>
+    )
 }
 
 function mapStateToProps(state) {
@@ -39,7 +48,9 @@ const mapDispatchToProps = {
     addPost,
     getProfile,
     getStatus,
-    updateStatus
+    updateStatus,
+    updateAvatar,
+    updateProfile,
 }
 
 export default compose(

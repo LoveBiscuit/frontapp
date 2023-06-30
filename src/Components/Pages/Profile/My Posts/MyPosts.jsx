@@ -5,7 +5,6 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
 const MyPosts = React.memo((props) => {
-    console.log('rendered');
     // Отображение постов и их сортировка
     let postsElements = [...props.postsData]
         .reverse()

@@ -11,7 +11,7 @@ function Users(props) {
     let pages = [];
 
     let portionCount = Math.ceil(pageCounter / props.portionSize);
-    
+
     let [portionNumber, setPortionNumber] = useState(1);
     let startPage = (portionNumber - 1) * props.portionSize + 1;
     let endPage = portionNumber * props.portionSize;
@@ -35,7 +35,7 @@ function Users(props) {
                                 return (
                                     <div key={id} className={s.selector}>
                                         <span onClick={() => { props.changePage(page) }}
-                                            className={props.currentPage === page ? s.active : null}>{page}</span>
+                                            className={props.currentPage === page ? s.active : undefined}>{page}</span>
                                     </div>
                                 )
                             }

@@ -8,7 +8,14 @@ function Profile(props) {
         <div className={s.wrapper}>
             <div className={s.profileInfoWrapper}>
                 <h3>Профиль пользователя</h3>
-                <ProfileInfo profile={props.userProfile} status={props.userStatus} updateStatus={props.updateStatus} />
+                <ProfileInfo 
+                isOwner={props.isOwner} 
+                profile={props.userProfile}
+                status={props.userStatus} 
+                updateStatus={props.updateStatus} 
+                updateAvatar={props.updateAvatar}
+                updateProfile={props.updateProfile}
+                />
             </div>
             <div className={s.postsWrapper}>
                 <h3>Мои посты</h3>
